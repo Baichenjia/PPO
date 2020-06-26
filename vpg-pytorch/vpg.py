@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import gym
 import time
-import core
+import core as core
 
 from spinup.utils.logx import EpochLogger
 from spinup.utils.mpi_pytorch import setup_pytorch_for_mpi, sync_params, mpi_avg_grads
@@ -247,7 +247,6 @@ def vpg(env, hidden_sizes, seed=0, steps_per_epoch=4000, epochs=50, gamma=0.99,
                     _, v, _ = ac.step(torch.as_tensor(o, dtype=torch.float32))
                 else:
                     v = 0
-                print("step:", t, ", done:", d, ", v:", v)
                 buf.finish_path(v)
                 if terminal:
                     logger.store(EpRet=ep_ret, EpLen=ep_len)
@@ -286,7 +285,7 @@ if __name__ == '__main__':
     parser.add_argument('--seed', '-s', type=int, default=0)
     parser.add_argument('--cpu', type=int, default=1)
     parser.add_argument('--steps', type=int, default=4000)
-    parser.add_argument('--epochs', type=int, default=50)
+    parser.add_argument('--epochs', type=int, default=500)
     parser.add_argument('--exp_name', type=str, default='vpg')
     args = parser.parse_args()
 

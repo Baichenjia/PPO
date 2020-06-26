@@ -65,7 +65,7 @@ class MLPGaussianActor(nn.Module):
         # 连续动作空间
         super().__init__()
         self.mu = MlpNetwork([obs_dim] + list(hidden_sizes) + [act_dim], activation)
-        self.log_std = torch.nn.Parameter(0.5*torch.ones(act_dim, dtype=torch.float32))
+        self.log_std = torch.nn.Parameter(-0.5*torch.ones(act_dim, dtype=torch.float32))
 
     def log_prob(self, pi, act):
         # 从高斯策略中sample出的动作 act=(None, act_dim), 求 log_prob后shape=(None, act_dim), 需要求和变为 (None,)
